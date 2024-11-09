@@ -1,0 +1,31 @@
+@use '@styles/mixin.module' as mixins;
+@use '@styles/variable.module' as vars;
+
+.container {
+    @include mixins.flex_box_custom(center, center, 0px);
+
+    background-image: url(../../assets/images/Banner-Ecommerse.jpeg);
+    min-height: 750px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.content {
+    @include mixins.flex_box_custom(center, center, 10px);
+
+    flex-direction: column;
+}
+
+.title {
+    font-size: 42px;
+    color: vars.$four_color;
+    font-weight: 400;
+    margin: 15px 0;
+}
+
+.des {
+    color: vars.$thr_color;
+    font-weight: 300;
+    margin-bottom: 25px;
+}

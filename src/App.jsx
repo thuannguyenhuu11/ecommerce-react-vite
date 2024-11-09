@@ -1,15 +1,9 @@
-import MainLayout from '@components/Layout/Layout';
-import Header from '@components/Header/Header';
-import Footer from '@components/Footer/Footer';
+import HomePage from '@/components/HomePage/HomePage';
 
 function App() {
     return (
         <>
-            <MainLayout>
-                <Header />
-                Content
-                <Footer />
-            </MainLayout>
+            <HomePage />
         </>
     );
 }

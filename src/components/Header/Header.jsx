@@ -19,71 +19,73 @@ const Header = () => {
     } = styles;
 
     return (
-        <div className={containerHeader}>
-            <div className={containerBox}>
-                <div className={containerBoxIcon}>
-                    {dataBoxIcon.map((item) => {
-                        return (
-                            <BoxIcon
-                                key={item.type}
-                                type={item.type}
-                                href={item.href}
-                            />
-                        );
-                    })}
+        <div className={container}>
+            <div className={containerHeader}>
+                <div className={containerBox}>
+                    <div className={containerBoxIcon}>
+                        {dataBoxIcon.map((item) => {
+                            return (
+                                <BoxIcon
+                                    key={item.type}
+                                    type={item.type}
+                                    href={item.href}
+                                />
+                            );
+                        })}
+                    </div>
+                    <div className={containerMenu}>
+                        {dataMenu.slice(0, 3).map((item) => {
+                            return (
+                                <Menu
+                                    key={item.content}
+                                    content={item.content}
+                                    href={item.href}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
-                <div className={containerMenu}>
-                    {dataMenu.slice(0, 3).map((item) => {
-                        return (
-                            <Menu
-                                key={item.content}
-                                content={item.content}
-                                href={item.href}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
-            <div>
-                <img
-                    src={Logo}
-                    alt='Logo'
-                    style={{
-                        width: '153px',
-                        height: '53px'
-                    }}
-                />
-            </div>
-
-            <div className={containerBox}>
-                <div className={containerMenu}>
-                    {dataMenu.slice(3, dataMenu.length).map((item) => {
-                        return (
-                            <Menu
-                                key={item.content}
-                                content={item.content}
-                                href={item.href}
-                            />
-                        );
-                    })}
+                <div>
+                    <img
+                        src={Logo}
+                        alt='Logo'
+                        style={{
+                            width: '153px',
+                            height: '53px'
+                        }}
+                    />
                 </div>
 
-                <div className={containerBoxIcon}>
-                    <TfiReload
-                        style={{
-                            fontSize: '20px'
-                        }}
-                    />
-                    <BsHeart
-                        style={{
-                            fontSize: '20px'
-                        }}
-                    />
-                    <PiShoppingCart
-                        style={{
-                            fontSize: '25px'
-                        }}
-                    />
+                <div className={containerBox}>
+                    <div className={containerMenu}>
+                        {dataMenu.slice(3, dataMenu.length).map((item) => {
+                            return (
+                                <Menu
+                                    key={item.content}
+                                    content={item.content}
+                                    href={item.href}
+                                />
+                            );
+                        })}
+                    </div>
+
+                    <div className={containerBoxIcon}>
+                        <TfiReload
+                            style={{
+                                fontSize: '20px'
+                            }}
+                        />
+                        <BsHeart
+                            style={{
+                                fontSize: '20px'
+                            }}
+                        />
+                        <PiShoppingCart
+                            style={{
+                                fontSize: '25px'
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
