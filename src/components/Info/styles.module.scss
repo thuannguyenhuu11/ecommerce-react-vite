@@ -1,0 +1,35 @@
+@use '@styles/mixin.module' as mixins;
+@use '@styles/variable.module' as vars;
+
+.container {
+    // height: 144px;
+    background-color: vars.$primary_color;
+    margin-top: -75px;
+    padding: 20px 55px;
+
+    @include mixins.flex_box_custom(space-between, center, 0px);
+}
+
+.containerCard {
+    @include mixins.flex_box_custom(center, center, 18px);
+
+    width: 280px;
+    height: 104px;
+}
+
+.containerContent {
+    @include mixins.flex_box_custom(center, flex-start, 13px);
+
+    flex-direction: column;
+    color: vars.$white_color;
+    font-weight: 300;
+
+    .title {
+        font-size: 17px;
+    }
+
+    .des {
+        font-size: 16px;
+        color: #ffffffc7;
+    }
+}
