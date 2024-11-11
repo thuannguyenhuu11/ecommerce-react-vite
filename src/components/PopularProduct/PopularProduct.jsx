@@ -1,18 +1,14 @@
 import MainLayout from '@components/Layout/Layout';
-import CountdownBanner from '@components/CountDownBanner/CountDownBanner';
-import styles from './styles.module.scss';
 import ProductItem from '@components/ProductItem/ProductItem';
+import styles from './styles.module.scss';
 
-const HeadlingListProducts = ({ data }) => {
-    const { container, containerItem } = styles;
-
-    console.log(data);
+const PopularProduct = ({ data }) => {
+    const { container } = styles;
 
     return (
-        <MainLayout>
-            <div className={container}>
-                <CountdownBanner />
-                <div className={containerItem}>
+        <>
+            <MainLayout>
+                <div className={container}>
                     {data.map((item) => (
                         <ProductItem
                             key={item.id}
@@ -24,9 +20,9 @@ const HeadlingListProducts = ({ data }) => {
                         />
                     ))}
                 </div>
-            </div>
-        </MainLayout>
+            </MainLayout>
+        </>
     );
 };
 
-export default HeadlingListProducts;
+export default PopularProduct;

@@ -1,29 +1,37 @@
 import Header from '@components/Header/Header';
 import Banner from '@components/Banner/Banner';
-import styles from './styles.module.scss';
 import Info from '@/components/Info/Info';
 import AdvancedHeadling from '@components/AdvancedHeadling/AdvancedHeadling';
 import HeadlingListProducts from '@components/HeadlingListProducts/HeadlingListProducts';
-import { useEffect } from 'react';
+import PopularProduct from '@components/PopularProduct/PopularProduct';
+import { useEffect, useState } from 'react';
 import { getProducts } from '@/apis/productsService';
 
 const HomePage = () => {
-    const { container } = styles;
+    const [listProducts, setListProducts] = useState([]);
 
     useEffect(() => {
-        getProducts();
+        getProducts().then((res) => {
+            setListProducts(res.contents);
+        });
     }, []);
 
+    console.log(listProducts);
+
     return (
-        <div>
-            <div className={container}>
-                <Header />
-                <Banner />
-                <Info />
-                <AdvancedHeadling />
-                <HeadlingListProducts />
-            </div>
-        </div>
+        <>
+            <Header />
+            <Banner />
+            <Info />
+            <AdvancedHeadling />
+            <HeadlingListProducts data={listProducts.slice(0, 2)} />
+            <PopularProduct data={listProducts.slice(2, listProducts.length)} />
+            <div
+                style={{
+                    height: '200px'
+                }}
+            ></div>
+        </>
     );
 };
 
