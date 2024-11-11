@@ -1,12 +1,20 @@
 import Button from '@components/Button/Button';
 import styles from './styles.module.scss';
+import useTranslateXImage from '@/hooks/useTranslateXImage';
 
 const SaleHomepage = () => {
     const { container, title, des, boxBtn, boxImage } = styles;
+    const { translateXPosition } = useTranslateXImage();
 
     return (
         <div className={container}>
-            <div>
+            <div
+                className={boxImage}
+                style={{
+                    transform: `translateX(${translateXPosition}px)`,
+                    transition: 'transform 0.6s ease'
+                }}
+            >
                 <img
                     src='https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image_1.jpeg'
                     alt=''
@@ -22,7 +30,13 @@ const SaleHomepage = () => {
                     <Button content={'Read more'} isPrimary={false} />
                 </div>
             </div>
-            <div>
+            <div
+                className={boxImage}
+                style={{
+                    transform: `translateX(-${translateXPosition}px)`,
+                    transition: 'transform 0.6s ease'
+                }}
+            >
                 <img
                     src='https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image_2.jpeg'
                     alt=''
