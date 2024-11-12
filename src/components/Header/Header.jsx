@@ -24,7 +24,12 @@ const Header = () => {
 
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
-    const { isOpen, setIsOpen } = useContext(SideBarContext);
+    const { setIsOpen, setType } = useContext(SideBarContext);
+
+    const handleOpenSideBar = (type) => {
+        setIsOpen(true);
+        setType(type);
+    };
 
     useEffect(() => {
         setFixedPosition(scrollPosition > 80);
@@ -80,7 +85,6 @@ const Header = () => {
                                     key={item.content}
                                     content={item.content}
                                     href={item.href}
-                                    setIsOpen={setIsOpen}
                                 />
                             );
                         })}
@@ -91,16 +95,19 @@ const Header = () => {
                             style={{
                                 fontSize: '20px'
                             }}
+                            onClick={() => handleOpenSideBar('compare')}
                         />
                         <BsHeart
                             style={{
                                 fontSize: '20px'
                             }}
+                            onClick={() => handleOpenSideBar('wishlist')}
                         />
                         <PiShoppingCart
                             style={{
                                 fontSize: '25px'
                             }}
+                            onClick={() => handleOpenSideBar('cart')}
                         />
                     </div>
                 </div>
