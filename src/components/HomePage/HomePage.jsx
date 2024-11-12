@@ -5,6 +5,7 @@ import AdvancedHeadling from '@components/AdvancedHeadling/AdvancedHeadling';
 import HeadlingListProducts from '@components/HeadlingListProducts/HeadlingListProducts';
 import PopularProduct from '@components/PopularProduct/PopularProduct';
 import SaleHomepage from '@components/SaleHomepage/SaleHomepage';
+import Footer from '@components/Footer/Footer';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@/apis/productsService';
 
@@ -28,11 +29,7 @@ const HomePage = () => {
             <HeadlingListProducts data={listProducts.slice(0, 2)} />
             <PopularProduct data={listProducts.slice(2, listProducts.length)} />
             <SaleHomepage />
-            <div
-                style={{
-                    height: '200px'
-                }}
-            ></div>
+            <Footer />
         </>
     );
 };
