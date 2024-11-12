@@ -1,24 +1,41 @@
 import { TfiLayoutGrid4 } from 'react-icons/tfi';
 import { CiCircleList } from 'react-icons/ci';
 import styles from '../styles.module.scss';
-import cls from 'classnames';
 import { useContext } from 'react';
+import { OurShopContext } from '@contexts/OurShopProvider';
+import SelectBox from './SelectBox';
 
 const Filter = () => {
     const { containerFilter, boxIcon, boxLeft, selectBox, show, sort } = styles;
 
+    const { showOptions, sortOptions, setSortId, setShowId, setIsShowGrid } =
+        useContext(OurShopContext);
+
+    const getValueSelect = (value, type) => {
+        if (type === 'sort') {
+            setSortId(value);
+        } else {
+            setShowId(value);
+        }
+    };
+
+    const handleGetShowGrid = (type) => {
+        setIsShowGrid(type === 'grid');
+    };
+
     return (
         <div className={containerFilter}>
             <div className={boxLeft}>
-                <select className={cls(selectBox, sort)}>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                </select>
+                <SelectBox
+                    options={sortOptions}
+                    getValue={getValueSelect}
+                    type='sort'
+                />
 
                 <div className={boxIcon}>
                     <TfiLayoutGrid4
                         style={{ fontSize: '25px', cursor: 'pointer' }}
+                        onClick={() => handleGetShowGrid('grid')}
                     />
 
                     <div
@@ -31,6 +48,7 @@ const Filter = () => {
 
                     <CiCircleList
                         style={{ fontSize: '25px', cursor: 'pointer' }}
+                        onClick={() => handleGetShowGrid('list')}
                     />
                 </div>
             </div>
@@ -45,11 +63,11 @@ const Filter = () => {
                     Show
                 </div>
 
-                <select className={cls(selectBox)}>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                </select>
+                <SelectBox
+                    options={showOptions}
+                    getValue={getValueSelect}
+                    type='show'
+                />
             </div>
         </div>
     );
