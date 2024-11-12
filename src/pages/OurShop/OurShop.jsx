@@ -6,6 +6,7 @@ import Banner from './component/Banner';
 import { OurShopProvider } from '@contexts/OurShopProvider';
 import Filter from './component/Filter';
 import ListProducts from './component/ListProducts';
+import Footer from '@components/Footer/Footer';
 
 const OurShop = () => {
     const { container, functionBox, specialText, btnBack } = styles;
@@ -40,6 +41,7 @@ const OurShop = () => {
                     <ListProducts />
                 </div>
             </MainLayout>
+            <Footer />
         </OurShopProvider>
     );
 };

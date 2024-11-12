@@ -8,7 +8,14 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const ListProducts = () => {
     const { containerProduct, sectionListProduct, rotate } = styles;
-    const { products, isShowGrid, isLoading } = useContext(OurShopContext);
+    const {
+        products,
+        isShowGrid,
+        isLoading,
+        handleLoadMore,
+        total,
+        isLoadMore
+    } = useContext(OurShopContext);
 
     return (
         <div className={sectionListProduct}>
@@ -31,14 +38,27 @@ const ListProducts = () => {
                             ))}
                         </div>
 
-                        <div
-                            style={{
-                                width: '180px',
-                                margin: '50px auto'
-                            }}
-                        >
-                            <Button content={'LOAD MORE PRODUCT'} />
-                        </div>
+                        {products.length < total && (
+                            <div
+                                style={{
+                                    width: '180px',
+                                    margin: '50px auto'
+                                }}
+                            >
+                                <Button
+                                    content={
+                                        isLoadMore ? (
+                                            <AiOutlineLoading3Quarters
+                                                className={rotate}
+                                            />
+                                        ) : (
+                                            'LOAD MORE PRODUCT'
+                                        )
+                                    }
+                                    onClick={handleLoadMore}
+                                />
+                            </div>
+                        )}
                     </>
                 )}
             </MainLayout>
