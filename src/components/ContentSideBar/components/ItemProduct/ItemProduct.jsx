@@ -22,7 +22,9 @@ const ItemProduct = () => {
 
             <div className={boxContent}>
                 <div className={title}>Title of product</div>
+                <div className={size}>Size: M</div>
                 <div className={price}>Price</div>
+                <div className={price}>SKU:</div>
             </div>
         </div>
     );
