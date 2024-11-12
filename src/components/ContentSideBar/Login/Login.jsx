@@ -7,12 +7,16 @@ import { useState, useContext } from 'react';
 import { ToastContext } from '@/contexts/ToastProvider';
 import { register, signIn, getInfo } from '@/apis/authService';
 import Cookies from 'js-cookie';
+import { SideBarContext } from '@/contexts/SideBarProvider';
+import { StoreContext } from '@/contexts/storeProvider';
 
 const Login = () => {
     const { container, title, boxRememberMe, lostPw } = styles;
     const [isRegister, setIsRegister] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useContext(ToastContext);
+    const { setIsOpen } = useContext(SideBarContext);
+    const { setUserId } = useContext(StoreContext);
 
     const formik = useFormik({
         initialValues: {
@@ -55,9 +59,12 @@ const Login = () => {
                     .then((res) => {
                         setIsLoading(false);
                         const { id, token, refreshToken } = res.data;
-
+                        setUserId(id);
                         Cookies.set('token', token);
                         Cookies.set('refreshToken', refreshToken);
+                        Cookies.set('userId', id);
+                        toast.success('Sign in successfully!');
+                        setIsOpen(false);
                     })
                     .catch((err) => {
                         setIsLoading(false);
