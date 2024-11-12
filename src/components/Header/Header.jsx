@@ -6,6 +6,9 @@ import Logo from '@icons/images/Logo-retina.png';
 import { TfiReload } from 'react-icons/tfi';
 import { BsHeart } from 'react-icons/bs';
 import { PiShoppingCart } from 'react-icons/pi';
+import useScrollHandling from '@/hooks/useScrollHandling';
+import classNames from 'classnames';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
     const {
@@ -18,8 +21,19 @@ const Header = () => {
         topHeader
     } = styles;
 
+    const { scrollPosition } = useScrollHandling();
+    const [fixedPosition, setFixedPosition] = useState(false);
+
+    useEffect(() => {
+        setFixedPosition(scrollPosition > 80);
+    }, [scrollPosition]);
+
     return (
-        <div className={container}>
+        <div
+            className={classNames(container, topHeader, {
+                [fixedHeader]: fixedPosition
+            })}
+        >
             <div className={containerHeader}>
                 <div className={containerBox}>
                     <div className={containerBoxIcon}>
