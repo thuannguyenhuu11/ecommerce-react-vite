@@ -8,12 +8,12 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const ListProducts = () => {
     const { containerProduct, sectionListProduct, rotate } = styles;
-    const { products } = useContext(OurShopContext);
+    const { products, isShowGrid } = useContext(OurShopContext);
 
     return (
         <div className={sectionListProduct}>
             <MainLayout>
-                <div className={containerProduct}>
+                <div className={isShowGrid ? containerProduct : ''}>
                     {products.map((item) => (
                         <ProductItem
                             key={item.id}
