@@ -3,6 +3,8 @@ import Header from '@components/Header/Header';
 import styles from './styles.module.scss';
 import { useNavigate } from 'react-router-dom';
 import Banner from './component/Banner';
+import { OurShopProvider } from '@contexts/OurShopProvider';
+import Filter from './component/Filter';
 
 const OurShop = () => {
     const { container, functionBox, specialText, btnBack } = styles;
@@ -13,7 +15,7 @@ const OurShop = () => {
     };
 
     return (
-        <>
+        <OurShopProvider>
             <Header />
             <MainLayout>
                 <div className={container}>
@@ -31,8 +33,12 @@ const OurShop = () => {
                 </div>
 
                 <Banner />
+
+                <div>
+                    <Filter />
+                </div>
             </MainLayout>
-        </>
+        </OurShopProvider>
     );
 };
 
