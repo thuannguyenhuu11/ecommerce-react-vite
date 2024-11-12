@@ -3,9 +3,12 @@ import Button from '@components/Button/Button';
 import styles from './styles.module.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useState } from 'react';
 
 const Login = () => {
     const { container, title, boxRememberMe, lostPw } = styles;
+    const [isRegister, setIsRegister] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -23,14 +26,20 @@ const Login = () => {
                 [Yup.ref('password'), null],
                 'Passwords must match'
             )
-        })
+        }),
+        onSubmit: async (values) => {
+            console.log(values);
+        }
     });
 
-    console.log(formik.errors);
+    const handleToggle = () => {
+        setIsRegister(!isRegister);
+        formik.resetForm();
+    };
 
     return (
         <div className={container}>
-            <div className={title}>SIGN IN</div>
+            <div className={title}>{isRegister ? 'SIGN UP' : 'SIGN IN'}</div>
 
             <form onSubmit={formik.handleSubmit}>
                 <InputCommon
@@ -49,15 +58,47 @@ const Login = () => {
                     formik={formik}
                 />
 
-                <div className={boxRememberMe}>
-                    <input type='checkbox' />
-                    <span>Remember me</span>
-                </div>
+                {isRegister && (
+                    <InputCommon
+                        id='cfmpassword'
+                        label='Confirm password'
+                        type='password'
+                        isRequired
+                        formik={formik}
+                    />
+                )}
 
-                <Button content={'LOGIN'} type='submit' />
+                {!isRegister && (
+                    <div className={boxRememberMe}>
+                        <input type='checkbox' />
+                        <span>Remember me</span>
+                    </div>
+                )}
+
+                <Button
+                    content={
+                        isLoading
+                            ? 'LOADING...'
+                            : isRegister
+                            ? 'REGISTER'
+                            : 'LOGIN'
+                    }
+                    type='submit'
+                />
             </form>
 
-            <div className={lostPw}>Lost your password</div>
+            <Button
+                content={
+                    isRegister
+                        ? 'Already have an account?'
+                        : 'Don’t have an account?'
+                }
+                isPrimary={false}
+                style={{ marginTop: '10px' }}
+                onClick={handleToggle}
+            />
+
+            {!isRegister && <div className={lostPw}>Lost your password?</div>}
         </div>
     );
 };
