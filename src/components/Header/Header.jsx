@@ -8,7 +8,8 @@ import { BsHeart } from 'react-icons/bs';
 import { PiShoppingCart } from 'react-icons/pi';
 import useScrollHandling from '@/hooks/useScrollHandling';
 import classNames from 'classnames';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { SideBarContext } from '@/contexts/SideBarProvider';
 
 const Header = () => {
     const {
@@ -23,6 +24,7 @@ const Header = () => {
 
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
+    const { isOpen, setIsOpen } = useContext(SideBarContext);
 
     useEffect(() => {
         setFixedPosition(scrollPosition > 80);
@@ -78,6 +80,7 @@ const Header = () => {
                                     key={item.content}
                                     content={item.content}
                                     href={item.href}
+                                    setIsOpen={setIsOpen}
                                 />
                             );
                         })}
