@@ -4,9 +4,10 @@ import { FiEyeOff } from 'react-icons/fi';
 import cls from 'classnames';
 import { useState } from 'react';
 
-const InputCommon = ({ label, type, isRequired = false }) => {
+const InputCommon = ({ label, type, isRequired = false, ...props }) => {
     const { labelInput, boxInput, container, boxIcon, errMsg, isErrInput } =
         styles;
+    const { formik, id } = props;
     const [showPassword, setShowPassword] = useState(false);
 
     const isPassword = type === 'password';
@@ -17,18 +18,32 @@ const InputCommon = ({ label, type, isRequired = false }) => {
         setShowPassword(!showPassword);
     };
 
+    const isErr = formik.touched[id] && formik.errors[id];
+    const messageErr = formik.errors[id];
+
+    console.log(props);
+
     return (
         <div className={container}>
             <div className={labelInput}>
                 {label} {isRequired && <span>*</span>}
             </div>
             <div className={boxInput}>
-                <input type={isShowTextPassword} />
+                <input
+                    type={isShowTextPassword}
+                    {...props}
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values[id]}
+                    className={cls({ [isErrInput]: isErr })}
+                />
                 {isPassword && (
                     <div className={boxIcon} onClick={handleShowPassword}>
                         {showPassword ? <FiEyeOff /> : <FiEye />}
                     </div>
                 )}
+
+                {isErr && <div className={errMsg}>{messageErr}</div>}
             </div>
         </div>
     );
