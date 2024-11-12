@@ -8,24 +8,39 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const ListProducts = () => {
     const { containerProduct, sectionListProduct, rotate } = styles;
-    const { products, isShowGrid } = useContext(OurShopContext);
+    const { products, isShowGrid, isLoading } = useContext(OurShopContext);
 
     return (
         <div className={sectionListProduct}>
             <MainLayout>
-                <div className={isShowGrid ? containerProduct : ''}>
-                    {products.map((item) => (
-                        <ProductItem
-                            key={item.id}
-                            src={item.images[0]}
-                            prevSrc={item.images[1]}
-                            name={item.name}
-                            price={item.price}
-                            details={item}
-                            isHomepage={false}
-                        />
-                    ))}
-                </div>
+                {isLoading ? (
+                    <div>Loading...</div>
+                ) : (
+                    <>
+                        <div className={isShowGrid ? containerProduct : ''}>
+                            {products.map((item) => (
+                                <ProductItem
+                                    key={item.id}
+                                    src={item.images[0]}
+                                    prevSrc={item.images[1]}
+                                    name={item.name}
+                                    price={item.price}
+                                    details={item}
+                                    isHomepage={false}
+                                />
+                            ))}
+                        </div>
+
+                        <div
+                            style={{
+                                width: '180px',
+                                margin: '50px auto'
+                            }}
+                        >
+                            <Button content={'LOAD MORE PRODUCT'} />
+                        </div>
+                    </>
+                )}
             </MainLayout>
         </div>
     );

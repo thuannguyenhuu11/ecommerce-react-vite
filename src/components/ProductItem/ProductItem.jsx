@@ -4,7 +4,7 @@ import heartIcon from '@icons/svgs/heart.svg';
 import cartIcon from '@icons/svgs/cartIcon.svg';
 import cls from 'classnames';
 import Button from '@components/Button/Button';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { OurShopContext } from '@/contexts/OurShopProvider';
 
 const ProductItem = ({
@@ -16,6 +16,7 @@ const ProductItem = ({
     isHomepage = true
 }) => {
     const { isShowGrid } = useContext(OurShopContext);
+    const [sizeChoose, setSizeChoose] = useState('');
 
     const {
         boxImg,
@@ -35,6 +36,14 @@ const ProductItem = ({
         isActiveSize,
         btnClear
     } = styles;
+
+    const handleChooseSize = (size) => {
+        setSizeChoose(size);
+    };
+
+    const handleClearSize = () => {
+        setSizeChoose('');
+    };
 
     return (
         <div className={isShowGrid ? '' : containerItem}>
@@ -66,11 +75,23 @@ const ProductItem = ({
                     <div className={boxSize}>
                         {details.size.map((item, index) => {
                             return (
-                                <div key={index} className={size}>
+                                <div
+                                    key={index}
+                                    className={cls(size, {
+                                        [isActiveSize]: sizeChoose === item.name
+                                    })}
+                                    onClick={() => handleChooseSize(item.name)}
+                                >
                                     {item.name}
                                 </div>
                             );
                         })}
+                    </div>
+                )}
+
+                {sizeChoose && (
+                    <div className={btnClear} onClick={() => handleClearSize()}>
+                        Clear
                     </div>
                 )}
 
