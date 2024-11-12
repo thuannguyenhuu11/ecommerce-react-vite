@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Banner from './component/Banner';
 import { OurShopProvider } from '@contexts/OurShopProvider';
 import Filter from './component/Filter';
+import ListProducts from './component/ListProducts';
 
 const OurShop = () => {
     const { container, functionBox, specialText, btnBack } = styles;
@@ -36,6 +37,7 @@ const OurShop = () => {
 
                 <div>
                     <Filter />
+                    <ListProducts />
                 </div>
             </MainLayout>
         </OurShopProvider>
