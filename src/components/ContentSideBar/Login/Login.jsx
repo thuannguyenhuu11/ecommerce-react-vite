@@ -3,12 +3,14 @@ import Button from '@components/Button/Button';
 import styles from './styles.module.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { ToastContext } from '@/contexts/ToastProvider';
 
 const Login = () => {
     const { container, title, boxRememberMe, lostPw } = styles;
     const [isRegister, setIsRegister] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const { toast } = useContext(ToastContext);
 
     const formik = useFormik({
         initialValues: {
@@ -84,6 +86,7 @@ const Login = () => {
                             : 'LOGIN'
                     }
                     type='submit'
+                    onClick={() => toast.success('Success')}
                 />
             </form>
 
