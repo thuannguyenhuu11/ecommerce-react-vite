@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { useState, useContext } from 'react';
 import { ToastContext } from '@/contexts/ToastProvider';
 import { register, signIn, getInfo } from '@/apis/authService';
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const { container, title, boxRememberMe, lostPw } = styles;
@@ -49,23 +50,20 @@ const Login = () => {
                     });
             }
 
-            // if (!isRegister) {
-            //     await signIn({ username, password })
-            //         .then((res) => {
-            //             setIsLoading(false);
-            //             const { id, token, refreshToken } = res.data;
-            //             setUserId(id);
-            //             Cookies.set('token', token);
-            //             Cookies.set('refreshToken', refreshToken);
-            //             Cookies.set('userId', id);
-            //             toast.success('Sign in successfully!');
-            //             setIsOpen(false);
-            //         })
-            //         .catch((err) => {
-            //             setIsLoading(false);
-            //             toast.error('Sign in failed!');
-            //         });
-            // }
+            if (!isRegister) {
+                await signIn({ username, password })
+                    .then((res) => {
+                        setIsLoading(false);
+                        const { id, token, refreshToken } = res.data;
+
+                        Cookies.set('token', token);
+                        Cookies.set('refreshToken', refreshToken);
+                    })
+                    .catch((err) => {
+                        setIsLoading(false);
+                        toast.error('Sign in failed!');
+                    });
+            }
         }
     });
 
