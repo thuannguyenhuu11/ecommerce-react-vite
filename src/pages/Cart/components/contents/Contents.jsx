@@ -2,9 +2,30 @@ import CartTable from '@/pages/Cart/components/contents/CartTable';
 import styles from '../../styles.module.scss';
 import CartSummary from '@/pages/Cart/components/contents/CartSummary';
 import Button from '@components/Button/Button';
+import { useContext } from 'react';
+import { SideBarContext } from '@/contexts/SideBarProvider';
+import { addProductToCart } from '@/apis/cartService';
 
 function Contents() {
     const { containerContents, boxFooter, boxBtnDelete, boxCoupon } = styles;
+    const {
+        listProductCart,
+        handleGetListProductsCart,
+        isLoading,
+        setIsLoading
+    } = useContext(SideBarContext);
+
+    const handleReplaceQuantity = (data) => {
+        setIsLoading(true);
+        addProductToCart(data)
+            .then((res) => {
+                handleGetListProductsCart(data.userId, 'cart');
+            })
+            .catch((err) => {
+                setIsLoading(false);
+                console.log(err);
+            });
+    };
 
     return (
         <div className={containerContents}>
@@ -13,7 +34,11 @@ function Contents() {
                     width: '58%'
                 }}
             >
-                <CartTable />
+                <CartTable
+                    listProductCart={listProductCart}
+                    getData={handleReplaceQuantity}
+                    isLoading={isLoading}
+                />
 
                 <div className={boxFooter}>
                     <div className={boxCoupon}>
