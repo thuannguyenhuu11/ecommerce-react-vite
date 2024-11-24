@@ -283,3 +283,24 @@
         }
     }
 }
+
+.boxEmptyCart {
+    @include mixins.flex_box_custom(center, center, 20px);
+    flex-direction: column;
+
+    width: 100%;
+    font-size: 14px;
+    color: vars.$thr_color;
+
+    .titleEmpty {
+        font-size: 24px;
+        color: vars.$primary_color;
+    }
+
+    .boxBtnEmpty {
+        button {
+            padding: 0 20px;
+            font-size: 12px;
+        }
+    }
+}
