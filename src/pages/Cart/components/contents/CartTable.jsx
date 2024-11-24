@@ -2,12 +2,8 @@ import styles from '../../styles.module.scss';
 import SelectBox from '@/pages/OurShop/component/SelectBox';
 import LoadingCart from '../Loading';
 
-const CartTable = ({ listProductCart, getData, isLoading }) => {
+const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
     const { cartTable } = styles;
-
-    const handleDelete = (id) => {
-        console.log('Delete item with id:', id);
-    };
 
     const handleQuantityChange = (id, newQuantity) => {
         console.log('Update item:', id, 'to quantity:', newQuantity);
@@ -59,7 +55,15 @@ const CartTable = ({ listProductCart, getData, isLoading }) => {
                                 </div>
                             </td>
                             <td>
-                                <div onClick={() => handleDelete(item.id)}>
+                                <div
+                                    onClick={() =>
+                                        getDataDelete({
+                                            userId: item.userId,
+                                            productId: item.productId
+                                        })
+                                    }
+                                    style={{ cursor: 'pointer' }}
+                                >
                                     &#128465;
                                 </div>
                             </td>

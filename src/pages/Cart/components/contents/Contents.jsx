@@ -4,7 +4,7 @@ import CartSummary from '@/pages/Cart/components/contents/CartSummary';
 import Button from '@components/Button/Button';
 import { useContext } from 'react';
 import { SideBarContext } from '@/contexts/SideBarProvider';
-import { addProductToCart } from '@/apis/cartService';
+import { addProductToCart, deleteItem } from '@/apis/cartService';
 
 function Contents() {
     const { containerContents, boxFooter, boxBtnDelete, boxCoupon } = styles;
@@ -27,6 +27,18 @@ function Contents() {
             });
     };
 
+    const handleDeleteItemCart = (data) => {
+        setIsLoading(true);
+        deleteItem(data)
+            .then((res) => {
+                handleGetListProductsCart(data.userId, 'cart');
+            })
+            .catch((err) => {
+                setIsLoading(false);
+                console.log(err);
+            });
+    };
+
     return (
         <div className={containerContents}>
             <div
@@ -38,6 +50,7 @@ function Contents() {
                     listProductCart={listProductCart}
                     getData={handleReplaceQuantity}
                     isLoading={isLoading}
+                    getDataDelete={handleDeleteItemCart}
                 />
 
                 <div className={boxFooter}>
