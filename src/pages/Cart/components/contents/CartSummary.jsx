@@ -1,6 +1,9 @@
 import styles from '../../styles.module.scss';
 import Button from '@components/Button/Button';
 import cls from 'classnames';
+import { useContext } from 'react';
+import { SideBarContext } from '@/contexts/SideBarProvider';
+import LoadingCart from '../Loading';
 
 const CartSummary = () => {
     const {
@@ -18,6 +21,7 @@ const CartSummary = () => {
         imgMethods,
         textSecure
     } = styles;
+    const { listProductCart, isLoading } = useContext(SideBarContext);
 
     const srcMethods = [
         'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/visa.jpeg',
@@ -27,6 +31,10 @@ const CartSummary = () => {
         'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/maestro.jpeg',
         'https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/bitcoin.jpeg'
     ];
+
+    const total = listProductCart.reduce((acc, item) => {
+        return acc + item.total;
+    }, 0);
 
     return (
         <div className={containerRight}>
@@ -40,12 +48,14 @@ const CartSummary = () => {
 
                 <div className={cls(boxTotal, totals)}>
                     <div>TOTAL</div>
-                    <div>$2,099.97</div>
+                    <div>{total}</div>
                 </div>
 
                 <Button content={'PROCEED TO CHECKOUT'} />
                 <div className={space} />
-                <Button content={'CONTINUE SHOPPING'} isPriamry={false} />
+                <Button content={'CONTINUE SHOPPING'} isPrimary={false} />
+
+                {isLoading && <LoadingCart />}
             </div>
 
             <div className={containerMethods}>
