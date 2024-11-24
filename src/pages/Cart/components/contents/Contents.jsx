@@ -4,7 +4,7 @@ import CartSummary from '@/pages/Cart/components/contents/CartSummary';
 import Button from '@components/Button/Button';
 import { useContext } from 'react';
 import { SideBarContext } from '@/contexts/SideBarProvider';
-import { addProductToCart, deleteItem } from '@/apis/cartService';
+import { addProductToCart, deleteItem, deleteCart } from '@/apis/cartService';
 
 function Contents() {
     const { containerContents, boxFooter, boxBtnDelete, boxCoupon } = styles;
@@ -12,7 +12,8 @@ function Contents() {
         listProductCart,
         handleGetListProductsCart,
         isLoading,
-        setIsLoading
+        setIsLoading,
+        userId
     } = useContext(SideBarContext);
 
     const handleReplaceQuantity = (data) => {
@@ -32,6 +33,18 @@ function Contents() {
         deleteItem(data)
             .then((res) => {
                 handleGetListProductsCart(data.userId, 'cart');
+            })
+            .catch((err) => {
+                setIsLoading(false);
+                console.log(err);
+            });
+    };
+
+    const handleDeleteCart = () => {
+        setIsLoading(true);
+        deleteCart({ userId })
+            .then((res) => {
+                handleGetListProductsCart(userId, 'cart');
             })
             .catch((err) => {
                 setIsLoading(false);
@@ -63,6 +76,7 @@ function Contents() {
                         <Button
                             content={<div>&#128465; CLEAR SHOPPING CART</div>}
                             isPriamry={false}
+                            onClick={handleDeleteCart}
                         />
                     </div>
                 </div>
